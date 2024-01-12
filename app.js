@@ -26,7 +26,7 @@ function generateHex() {
 
 function randomColors() {
   colorDivs.forEach((div, index) => {
-    const hexText = div.children[0]; //0 index get hex children
+    const hexText = div.children[0]; //0 index get 1st children element of colorsdiv(.color) means hex
     const randomColor = generateHex();
 
     //adding color to background
