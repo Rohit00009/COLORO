@@ -38,12 +38,12 @@ path,i,svg{
     flex-direction: column;
     position: absolute;
     bottom: 0%;
-    background: rgb(133, 106, 106);
-    opacity: 0;
+    background: white;
+    /* opacity: 0; */
     padding: 1rem;
     width: 80%;
     border-top-right-radius: 1rem;
-    pointer-events: none;
+    /* pointer-events: none; */
     border-top-left-radius: 1rem;
     /* we are adding adjustment class here*/
     /* transform: translateY(100px); */
@@ -108,4 +108,15 @@ path,i,svg{
     background:none;
     cursor: pointer;
     margin: 2rem 0rem;
+}
+
+/* sliders stuff */
+
+input[type='range']{
+    -webkit-appearance: none;
+    margin: 1rem;
+    width: 100% ;
+    position: relative ;
+    border-radius: 1rem;
+    cursor: pointer;
 }
