@@ -9,6 +9,11 @@ let initialColors; //we created variable!
 sliders.forEach((slider) => {
   slider.addEventListener("input", hslControls);
 });
+colorDivs.forEach((div, index) => {
+  div.addEventListener("change", () => {
+    updateTextUi(index);
+  });
+});
 
 //FUNCTIONS
 
@@ -103,4 +108,18 @@ function hslControls(e) {
   //let add it to background
   colorDivs[index].style.backgroundColor = color;
 }
+
+function updateTextUi(index) {
+  const activeDiv = colorDivs[index]; //selectig color from backgrond
+  const color = chroma(activeDiv.style.backgroundColor); //and adding it to chroma
+  const textHex = activeDiv.querySelector("h2");
+  const icons = activeDiv.querySelectorAll(".controls button");
+  textHex.innerText = color.hex(); //so we can convert it to hex
+  //check contrast
+  checkTextContrast(color, textHex);
+  for (icon of icons) {
+    checkTextContrast(color, icon);
+  }
+}
+
 randomColors();
