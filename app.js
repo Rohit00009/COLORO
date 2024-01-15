@@ -35,9 +35,13 @@ function generateHex() {
 }
 
 function randomColors() {
+  //do initial colors
+  initialColors = [];
   colorDivs.forEach((div, index) => {
     const hexText = div.children[0]; //0 index get 1st children element of colorsdiv(.color) means hex
     const randomColor = generateHex();
+    //add it to array
+    initialColors.push(chroma(randomColor).hex());
 
     //adding color to background
     div.style.backgroundColor = randomColor;
@@ -54,6 +58,8 @@ function randomColors() {
 
     colorizeSliders(color, hue, brightness, saturation);
   });
+  //reset inputs
+  resetInputs();
 }
 
 function checkTextContrast(color, text) {
@@ -98,7 +104,8 @@ function hslControls(e) {
   const brightness = sliders[1];
   const saturation = sliders[2];
 
-  const bgColor = colorDivs[index].querySelector("h2").innerText;
+  // const bgColor = colorDivs[index].querySelector("h2").innerText; --> cuz this will give oy bak to white and cant get og color
+  const bgColor = initialColors[index]; //by this we always has acces to og one
 
   //let set background color by sliders
   let color = chroma(bgColor)
@@ -107,6 +114,8 @@ function hslControls(e) {
     .set("hsl.h", hue.value);
   //let add it to background
   colorDivs[index].style.backgroundColor = color;
+
+  colorizeSliders(color, hue, brightness, saturation);
 }
 
 function updateTextUi(index) {
@@ -120,6 +129,27 @@ function updateTextUi(index) {
   for (icon of icons) {
     checkTextContrast(color, icon);
   }
+}
+
+function resetInputs() {
+  const sliders = document.querySelectorAll(".sliders input");
+  sliders.forEach((slider) => {
+    if (slider.name === "hue") {
+      const hueColor = initialColors[slider.getAttribute("data-hue")];
+      const hueValue = chroma(hueColor).hsl()[0];
+      slider.value = math.floor(hueValue);
+    }
+    if (slider.name === "brightness") {
+      const brightColor = initialColors[slider.getAttribute("data-bright")];
+      const brightValue = chroma(brightColor).hsl()[2];
+      slider.value = math.floor(brightValue * 100) / 100;
+    }
+    if (slider.name === "saturation") {
+      const satColor = initialColors[slider.getAttribute("data-sat")];
+      const satValue = chroma(satColor).hsl()[1];
+      slider.value = math.floor(satValue * 100) / 100;
+    }
+  });
 }
 
 randomColors();
