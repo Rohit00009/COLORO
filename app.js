@@ -5,6 +5,7 @@ const sliders = document.querySelectorAll('input[type="range"]');
 const currentHexes = document.querySelectorAll(".color h2");
 const popup = document.querySelector(".copy-container");
 const adjustButton = document.querySelectorAll(".adjust");
+const lockButton = document.querySelectorAll(".lock");
 const closeAdjustments = document.querySelectorAll(".close-adjustment");
 const sliderContainers = document.querySelectorAll(".sliders");
 let initialColors; //we created variable!
@@ -86,7 +87,10 @@ function randomColors() {
   resetInputs();
 
   //check for button contrast
-  
+  adjustButton.forEach((button, index) => {
+    checkTextContrast(initialColors[index], button);
+    checkTextContrast(initialColors[index], lockButton[index]);
+  });
 }
 
 function checkTextContrast(color, text) {
@@ -164,17 +168,17 @@ function resetInputs() {
     if (slider.name === "hue") {
       const hueColor = initialColors[slider.getAttribute("data-hue")];
       const hueValue = chroma(hueColor).hsl()[0];
-      slider.value = math.floor(hueValue);
+      slider.value = Math.floor(hueValue);
     }
     if (slider.name === "brightness") {
       const brightColor = initialColors[slider.getAttribute("data-bright")];
       const brightValue = chroma(brightColor).hsl()[2];
-      slider.value = math.floor(brightValue * 100) / 100;
+      slider.value = Math.floor(brightValue * 100) / 100;
     }
     if (slider.name === "saturation") {
       const satColor = initialColors[slider.getAttribute("data-sat")];
       const satValue = chroma(satColor).hsl()[1];
-      slider.value = math.floor(satValue * 100) / 100;
+      slider.value = Math.floor(satValue * 100) / 100;
     }
   });
 }
