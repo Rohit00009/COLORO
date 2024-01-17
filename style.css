@@ -121,7 +121,7 @@ input[type='range']{
     cursor: pointer;
 }
 
-.copy-container, .save-container ,.Library-container {
+.copy-container, .save-container ,.library-container {
     position: fixed;
     top: 0%;
     left: 0%;
@@ -154,12 +154,12 @@ input[type='range']{
     padding: 2rem;
 }
 
-.copy-container.active,.save-container.active,.Library-container.active{
+.copy-container.active,.save-container.active,.library-container.active{
     opacity: 1;
     pointer-events: all;
 }
 
-.copy-popup.active,.save-popup.active,.Library-popup.active{
+.copy-popup.active,.save-popup.active,.library-popup.active{
     transform: translateY(0rem);
 }
 
@@ -173,7 +173,7 @@ input[type='range']{
     border-bottom-left-radius: 1rem;
     padding: 0.5rem;
 }
-.submit{
+.submit-save{
     margin: 2rem;
     padding: 1rem 3rem;
     background: rgb(72, 88, 121);

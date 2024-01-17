@@ -232,6 +232,7 @@ const saveInput = document.querySelector(".save-container input");
 //event listners
 saveBtn.addEventListener("click", openPalette);
 closeSave.addEventListener("click", closePalette);
+submitSave.addEventListener("click", savePalette);
 
 function openPalette(e) {
   const popup = saveContainer.children[0];
@@ -242,7 +243,7 @@ function openPalette(e) {
 function closePalette(e) {
   const popup = saveContainer.children[0];
   saveContainer.classList.remove("active");
-  popup.classList.remove("active");
+  popup.classList.add("remove");
 }
 function savePalette(e) {
   saveContainer.classList.remove("active");
@@ -252,5 +253,25 @@ function savePalette(e) {
   currentHexes.forEach((hex) => {
     colors.push(hex.innerText);
   });
+
+  //generate object
+  let paletteNr = savedPalettes.length;
+  const paletteObj = { name, colors, nr: paletteNr };
+  savedPalettes.push(paletteObj);
+  //save to local storage
+  savetoLocal(paletteObj);
+  saveInput.value = "";
 }
+
+function savetoLocal(paletteObj) {
+  let localPalettes;
+  if (localStorage.getItem("palettes") === null) {
+    localPalettes = [];
+  } else {
+    localPalettes = JSON.parse(localStorage.getItem("palettes"));
+  }
+  localPalettes.push(paletteObj);
+  localStorage.setItem("palettes", JSON.stringify(localPalettes));
+}
+
 randomColors();
